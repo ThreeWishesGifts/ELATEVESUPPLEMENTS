@@ -26,31 +26,63 @@
   }
 
   /* ---------------------------------------------------------
-     Phase data — mirrors the cards in #phases
+     Gummy jar illustration — rendered into any
+     [data-jar-color] element (phase cards, shop cards, quiz result)
+  --------------------------------------------------------- */
+  function jarSvg(color, label) {
+    var safeLabel = (label || "").toString().toUpperCase();
+    return (
+      '<svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">' +
+      '<ellipse cx="60" cy="151" rx="36" ry="6" fill="#1E3226" opacity=".12"/>' +
+      '<rect x="24" y="16" width="72" height="28" rx="12" fill="' + color + '"/>' +
+      '<rect x="24" y="16" width="72" height="9" rx="6" fill="#fff" opacity=".2"/>' +
+      '<rect x="34" y="38" width="52" height="16" rx="4" fill="' + color + '"/>' +
+      '<rect x="14" y="50" width="92" height="96" rx="20" fill="#FBF8F1" stroke="' + color + '" stroke-width="2.5"/>' +
+      '<circle cx="34" cy="122" r="9" fill="' + color + '"/>' +
+      '<circle cx="52" cy="133" r="8" fill="' + color + '" opacity=".55"/>' +
+      '<circle cx="71" cy="121" r="9" fill="' + color + '" opacity=".8"/>' +
+      '<circle cx="87" cy="131" r="7" fill="' + color + '" opacity=".45"/>' +
+      '<circle cx="61" cy="108" r="7" fill="' + color + '" opacity=".65"/>' +
+      '<rect x="20" y="62" width="80" height="44" rx="10" fill="#FFFFFF" stroke="rgba(30,50,38,.08)"/>' +
+      '<text x="60" y="83" text-anchor="middle" font-family="Fraunces, serif" font-size="16" font-weight="600" fill="#2F4A38">elateve</text>' +
+      '<text x="60" y="98" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" letter-spacing="1.5" font-weight="700" fill="' + color + '">' + safeLabel + '</text>' +
+      '</svg>'
+    );
+  }
+
+  function renderJars(root) {
+    (root || document).querySelectorAll("[data-jar-color]").forEach(function (el) {
+      el.innerHTML = jarSvg(el.getAttribute("data-jar-color"), el.getAttribute("data-jar-label"));
+    });
+  }
+  renderJars();
+
+  /* ---------------------------------------------------------
+     Phase / decade data — mirrors the cards in #decades and #shop
   --------------------------------------------------------- */
   var PHASES = {
     flow: {
-      num: "Phase 01", name: "Flow", stage: "Active cycle · ages 18–35", color: "#4B6A4F",
-      desc: "Cycle regularity, stress resilience, and hormonal balance through the reproductive years.",
+      num: "Flow", era: "20s", name: "Flow", stage: "Active cycle · ages 18–35", color: "#4B6A4F",
+      desc: "Cycle regularity, steady energy, and hormonal balance through your most active reproductive years.",
       actives: "Myo-Inositol, Folate, Zinc, KSM-66® Ashwagandha"
     },
     bloom: {
-      num: "Phase 02", name: "Bloom", stage: "The maternal window", color: "#8FA662",
-      desc: "Nourishment built for pregnancy and postpartum — for both of you.",
+      num: "Bloom", era: "Bloom", name: "Bloom", stage: "The maternal window", color: "#8FA662",
+      desc: "Nourishment built for pregnancy and postpartum, in whichever decade it finds you — for both of you.",
       actives: "Choline, Iron Bisglycinate, Algal DHA"
     },
     thrive: {
-      num: "Phase 03", name: "Thrive", stage: "Burnout recovery", color: "#5C8B86",
+      num: "Thrive", era: "30s", name: "Thrive", stage: "Burnout recovery", color: "#5C8B86",
       desc: "For the season when you're running everyone else's life on empty. Energy and stress recovery, rebuilt from the inside.",
       actives: "CoQ10, Magnesium Glycinate, Rhodiola"
     },
     shift: {
-      num: "Phase 04", name: "Shift", stage: "Perimenopause · ages 40–50", color: "#B97D62",
+      num: "Shift", era: "40s", name: "Shift", stage: "Perimenopause · ages 40–50", color: "#B97D62",
       desc: "Support through the hormonal swings, hot flashes, and mood shifts of the transition.",
       actives: "Black Cohosh, Vitex, Affron® Saffron"
     },
     wisdom: {
-      num: "Phase 05", name: "Wisdom", stage: "Post-menopause · 50+", color: "#A9895F",
+      num: "Wisdom", era: "50s+", name: "Wisdom", stage: "Post-menopause · 50+", color: "#A9895F",
       desc: "Bone density, cognitive clarity, and vitality for the chapter after menopause.",
       actives: "Calcium Hydroxyapatite, Maca, Lion's Mane"
     }
@@ -63,15 +95,6 @@
     fertility: "fertility & maternal health",
     longevity: "bone, brain & long-term vitality"
   };
-
-  function pouchSvg(color) {
-    return '<svg viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">' +
-      '<path d="M18 20c0-7 6-12 14-12h36c8 0 14 5 14 12v82c0 10-8 18-18 18H36c-10 0-18-8-18-18V20z" fill="' + color + '"/>' +
-      '<path d="M18 20c0-7 6-12 14-12h36c8 0 14 5 14 12v6H18z" fill="#000" opacity=".12"/>' +
-      '<circle cx="50" cy="55" r="14" fill="#fff" opacity=".9"/>' +
-      '<path d="M50 47c-5 0-8 4-8 8s3 8 8 8 3-5 3-8-3-8-3-8z" fill="' + color + '"/>' +
-      '</svg>';
-  }
 
   /* ---------------------------------------------------------
      Quiz modal
@@ -125,17 +148,17 @@
 
   function computeResult() {
     var phase = PHASES[answers.stage] || PHASES.flow;
-    document.getElementById("quizResultPhaseNum").textContent = phase.num;
+    document.getElementById("quizResultPhaseNum").textContent = "Your decade: " + phase.era;
     document.getElementById("quizResultName").textContent = phase.name;
     document.getElementById("quizResultStage").textContent = phase.stage;
-    document.getElementById("quizResultPouch").innerHTML = pouchSvg(phase.color);
+    document.getElementById("quizResultPouch").innerHTML = jarSvg(phase.color, phase.era);
 
     var desc = phase.desc;
     if (answers.priority && PRIORITY_LABELS[answers.priority]) {
-      desc += " You told us " + PRIORITY_LABELS[answers.priority] + " matters most right now — that's exactly what this phase is built around.";
+      desc += " You told us " + PRIORITY_LABELS[answers.priority] + " matters most right now — that's exactly what this gummy is built around.";
     }
     document.getElementById("quizResultDesc").textContent = desc;
-    document.getElementById("quizResultActives").innerHTML = "<strong>Key actives:</strong> " + phase.actives;
+    document.getElementById("quizResultActives").innerHTML = "<strong>In every gummy:</strong> " + phase.actives;
 
     var resultCard = document.getElementById("quizResultCard");
     if (resultCard) resultCard.style.setProperty("--phase-color", phase.color);
