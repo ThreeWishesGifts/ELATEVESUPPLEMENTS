@@ -5,17 +5,18 @@
   --cream: #FAF4EC;
   --cream-deep: #F3E9DB;
   --blush: #F3DCCB;
+  --gold: #C9A44C;
   --rose-gold: #B97D62;
   --rose-gold-light: #E7C1A4;
   --rose-gold-dark: #8B5A42;
-  --olive: #445239;
-  --olive-light: #6C7A5D;
+  --olive: #4A2F22;
+  --olive-light: #6B4732;
   --espresso: #2A211B;
   --espresso-deep: #1E1712;
   --ink: #2B2420;
   --white: #FFFFFF;
 
-  --font-head: 'Cormorant Garamond', Georgia, serif;
+  --font-head: 'Bodoni Moda', Georgia, serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   --radius-sm: 10px;
@@ -114,12 +115,13 @@ button { font: inherit; cursor: pointer; }
 .hero { padding-bottom: 70px; }
 .hero-top-image { position: relative; width: 100%; line-height: 0; }
 .hero-top-image img { width: 100%; height: auto; display: block; }
-.hero-fade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,16,12,.28) 0%, rgba(20,16,12,0) 22%, rgba(20,16,12,0) 78%, var(--cream) 100%); }
-.hero-copy { max-width: 680px; margin-top: -34px; position: relative; z-index: 1; }
+.hero-fade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,16,12,.28) 0%, rgba(20,16,12,0) 22%, rgba(20,16,12,0) 82%, var(--cream) 100%); }
+.hero-copy { max-width: 720px; margin-top: 54px; position: relative; z-index: 1; }
 .eyebrow, .section-eyebrow { display: inline-block; font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--rose-gold); margin-bottom: 14px; }
 .section-eyebrow--light { color: var(--rose-gold-light); }
 h1 { font-size: clamp(2.6rem, 6.5vw, 4.4rem); font-weight: 600; }
-.hero-sub { font-size: 1.1rem; max-width: 58ch; color: #55503E; }
+.hero-headline-1 { font-family: var(--font-head); font-size: clamp(2.6rem, 6.5vw, 4.4rem); font-weight: 500; font-style: italic; color: var(--rose-gold); margin: 0 0 .05em; line-height: 1.1; }
+.hero-sub { font-size: 1.1rem; max-width: 58ch; color: #55503E; margin-top: 18px; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 16px; margin: 28px 0 30px; }
 .trust-strip { display: flex; flex-wrap: wrap; gap: 10px 28px; font-size: .85rem; font-weight: 600; color: var(--olive); }
 .trust-strip li { display: flex; align-items: center; gap: 8px; }
@@ -179,8 +181,12 @@ h2 { font-size: clamp(1.9rem, 3.6vw, 2.7rem); max-width: 22ch; font-weight: 600;
 /* Quiz band */
 .quiz-band { background: linear-gradient(135deg, var(--espresso), var(--espresso-deep)); color: var(--cream); }
 .quiz-band h2, .quiz-band .section-lede { color: var(--cream); }
-.quiz-band-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
-.quiz-band-inner > div { flex: 1 1 480px; }
+.quiz-band-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+.quiz-band-inner > div { flex: 1 1 auto; min-width: 0; }
+.quiz-band-inner .btn { flex: 0 0 auto; }
+@media (max-width: 880px) {
+  .quiz-band-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+}
 
 /* Press */
 .press { background: var(--cream-deep); }

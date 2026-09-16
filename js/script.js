@@ -68,27 +68,27 @@
 
   var PHASES = {
     bloom: {
-      era: "Ages 18–29", name: "Bloom", stage: "Citrus botanical · your foundational decade", color: "#9DBFA6", img: "assets/vials/bloom.png",
+      era: "Ages 18–29", name: "Bloom", stage: "Citrus botanical · your foundational decade", color: "#E3B98C", img: "assets/vials/bloom.png",
       desc: "Cycle regularity, steady energy, and reproductive health for your foundational decade — including support through pregnancy and postpartum.",
       boost: "B-Complex, Zinc, Thiamine"
     },
     thrive: {
-      era: "Ages 30–39", name: "Thrive", stage: "Berry botanical · the decade of demands", color: "#4F8C8A", img: "assets/vials/thrive.png",
+      era: "Ages 30–39", name: "Thrive", stage: "Berry botanical · the decade of demands", color: "#C9A44C", img: "assets/vials/thrive.png",
       desc: "For the decade of demands — fertility, energy, and stress recovery while you're building the life you want.",
       boost: "Choline, Active Folate, CoQ10"
     },
     balance: {
-      era: "Ages 40–49", name: "Balance", stage: "Ginger hibiscus · perimenopause", color: "#C99A3E", img: "assets/vials/balance.png",
+      era: "Ages 40–49", name: "Balance", stage: "Ginger hibiscus · perimenopause", color: "#B97D62", img: "assets/vials/balance.png",
       desc: "Support through perimenopause's hormonal swings, mood shifts, and changing energy.",
       boost: "Ashwagandha, Maca, Resveratrol"
     },
     prime: {
-      era: "Ages 50–59", name: "Prime", stage: "Blond orange · menopause & beyond", color: "#BD6A3E", img: "assets/vials/prime.png",
+      era: "Ages 50–59", name: "Prime", stage: "Blond orange · menopause & beyond", color: "#8B5A42", img: "assets/vials/prime.png",
       desc: "Bone density and hormonal support as you move through menopause and into what's next.",
       boost: "Vitamin K2, Calcium, Phytoestrogens"
     },
     wisdom: {
-      era: "Ages 60+", name: "Wisdom", stage: "Pomegranate vanilla · long-term vitality", color: "#6B4A6E", img: "assets/vials/wisdom.png",
+      era: "Ages 60+", name: "Wisdom", stage: "Pomegranate vanilla · long-term vitality", color: "#4A2F22", img: "assets/vials/wisdom.png",
       desc: "Cognitive clarity, joint comfort, and long-term vitality for the decades of wisdom.",
       boost: "Curcumin, Boswellia, NMN"
     }
