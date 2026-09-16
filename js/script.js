@@ -26,6 +26,22 @@
   }
 
   /* ---------------------------------------------------------
+     Header — transparent over the hero, solid once scrolled
+  --------------------------------------------------------- */
+  var siteHeader = document.getElementById("siteHeader");
+  var heroImage = document.querySelector(".hero-top-image");
+  if (siteHeader) {
+    var updateHeaderState = function () {
+      var threshold = heroImage ? Math.max(heroImage.offsetHeight - 90, 40) : 40;
+      if (window.scrollY > threshold) siteHeader.classList.add("scrolled");
+      else siteHeader.classList.remove("scrolled");
+    };
+    updateHeaderState();
+    window.addEventListener("scroll", updateHeaderState, { passive: true });
+    window.addEventListener("resize", updateHeaderState);
+  }
+
+  /* ---------------------------------------------------------
      Scroll reveal — subtle fade/rise for a more dynamic feel
   --------------------------------------------------------- */
   var revealEls = document.querySelectorAll(".reveal");

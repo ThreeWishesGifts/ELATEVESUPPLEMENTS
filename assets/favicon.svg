@@ -1,5 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#2F4A38"/>
-  <path d="M32 46c-9-3-14-10-14-18 0-4 2-7 5-9 1 4 3 7 6 9 1-6 4-10 9-13 3 5 4 10 3 15 3-2 6-2 9-1-2 6-6 11-12 14-2 1-4 2-6 3z" fill="#D3A588"/>
-  <circle cx="32" cy="46" r="2.4" fill="#B97D62"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 100">
+  <rect width="130" height="100" rx="18" fill="#FAF4EC"/>
+  <path d="M65,78 C40,78 20,70 8,55 C24,66 44,70 65,72 Z" fill="#445239"/>
+  <path d="M65,78 C90,78 110,70 122,55 C106,66 86,70 65,72 Z" fill="#445239"/>
+  <g fill="#B97D62">
+    <path d="M65,75 C55,60 52,40 65,15 C78,40 75,60 65,75 Z" transform="rotate(-56 65 75)"/>
+    <path d="M65,75 C55,60 52,40 65,15 C78,40 75,60 65,75 Z" transform="rotate(-28 65 75)"/>
+    <path d="M65,75 C56,58 53,32 65,5 C77,32 74,58 65,75 Z"/>
+    <path d="M65,75 C55,60 52,40 65,15 C78,40 75,60 65,75 Z" transform="rotate(28 65 75)"/>
+    <path d="M65,75 C55,60 52,40 65,15 C78,40 75,60 65,75 Z" transform="rotate(56 65 75)"/>
+  </g>
 </svg>
