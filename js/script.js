@@ -26,65 +26,35 @@
   }
 
   /* ---------------------------------------------------------
-     Gummy jar illustration — rendered into any
-     [data-jar-color] element (phase cards, shop cards, quiz result)
-  --------------------------------------------------------- */
-  function jarSvg(color, label) {
-    var safeLabel = (label || "").toString().toUpperCase();
-    return (
-      '<svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">' +
-      '<ellipse cx="60" cy="151" rx="36" ry="6" fill="#1E3226" opacity=".12"/>' +
-      '<rect x="24" y="16" width="72" height="28" rx="12" fill="' + color + '"/>' +
-      '<rect x="24" y="16" width="72" height="9" rx="6" fill="#fff" opacity=".2"/>' +
-      '<rect x="34" y="38" width="52" height="16" rx="4" fill="' + color + '"/>' +
-      '<rect x="14" y="50" width="92" height="96" rx="20" fill="#FBF8F1" stroke="' + color + '" stroke-width="2.5"/>' +
-      '<circle cx="34" cy="122" r="9" fill="' + color + '"/>' +
-      '<circle cx="52" cy="133" r="8" fill="' + color + '" opacity=".55"/>' +
-      '<circle cx="71" cy="121" r="9" fill="' + color + '" opacity=".8"/>' +
-      '<circle cx="87" cy="131" r="7" fill="' + color + '" opacity=".45"/>' +
-      '<circle cx="61" cy="108" r="7" fill="' + color + '" opacity=".65"/>' +
-      '<rect x="20" y="62" width="80" height="44" rx="10" fill="#FFFFFF" stroke="rgba(30,50,38,.08)"/>' +
-      '<text x="60" y="83" text-anchor="middle" font-family="Fraunces, serif" font-size="16" font-weight="600" fill="#2F4A38">elateve</text>' +
-      '<text x="60" y="98" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" letter-spacing="1.5" font-weight="700" fill="' + color + '">' + safeLabel + '</text>' +
-      '</svg>'
-    );
-  }
-
-  function renderJars(root) {
-    (root || document).querySelectorAll("[data-jar-color]").forEach(function (el) {
-      el.innerHTML = jarSvg(el.getAttribute("data-jar-color"), el.getAttribute("data-jar-label"));
-    });
-  }
-  renderJars();
-
-  /* ---------------------------------------------------------
      Phase / decade data — mirrors the cards in #decades and #shop
   --------------------------------------------------------- */
+  var CORE_5 = "Collagen, Magnesium, Omega-3, Vit C, Vit D";
+
   var PHASES = {
-    flow: {
-      num: "Flow", era: "20s", name: "Flow", stage: "Active cycle · ages 18–35", color: "#4B6A4F",
-      desc: "Cycle regularity, steady energy, and hormonal balance through your most active reproductive years.",
-      actives: "Myo-Inositol, Folate, Zinc, KSM-66® Ashwagandha"
-    },
     bloom: {
-      num: "Bloom", era: "Bloom", name: "Bloom", stage: "The maternal window", color: "#8FA662",
-      desc: "Nourishment built for pregnancy and postpartum, in whichever decade it finds you — for both of you.",
-      actives: "Choline, Iron Bisglycinate, Algal DHA"
+      era: "Ages 18–29", name: "Bloom", stage: "Citrus botanical · your foundational decade", color: "#9DBFA6", img: "assets/vials/bloom.png",
+      desc: "Cycle regularity, steady energy, and reproductive health for your foundational decade — including support through pregnancy and postpartum.",
+      boost: "B-Complex, Zinc, Thiamine"
     },
     thrive: {
-      num: "Thrive", era: "30s", name: "Thrive", stage: "Burnout recovery", color: "#5C8B86",
-      desc: "For the season when you're running everyone else's life on empty. Energy and stress recovery, rebuilt from the inside.",
-      actives: "CoQ10, Magnesium Glycinate, Rhodiola"
+      era: "Ages 30–39", name: "Thrive", stage: "Berry botanical · the decade of demands", color: "#4F8C8A", img: "assets/vials/thrive.png",
+      desc: "For the decade of demands — fertility, energy, and stress recovery while you're building the life you want.",
+      boost: "Choline, Active Folate, CoQ10"
     },
-    shift: {
-      num: "Shift", era: "40s", name: "Shift", stage: "Perimenopause · ages 40–50", color: "#B97D62",
-      desc: "Support through the hormonal swings, hot flashes, and mood shifts of the transition.",
-      actives: "Black Cohosh, Vitex, Affron® Saffron"
+    balance: {
+      era: "Ages 40–49", name: "Balance", stage: "Ginger hibiscus · perimenopause", color: "#C99A3E", img: "assets/vials/balance.png",
+      desc: "Support through perimenopause's hormonal swings, mood shifts, and changing energy.",
+      boost: "Ashwagandha, Maca, Resveratrol"
+    },
+    prime: {
+      era: "Ages 50–59", name: "Prime", stage: "Blond orange · menopause & beyond", color: "#BD6A3E", img: "assets/vials/prime.png",
+      desc: "Bone density and hormonal support as you move through menopause and into what's next.",
+      boost: "Vitamin K2, Calcium, Phytoestrogens"
     },
     wisdom: {
-      num: "Wisdom", era: "50s+", name: "Wisdom", stage: "Post-menopause · 50+", color: "#A9895F",
-      desc: "Bone density, cognitive clarity, and vitality for the chapter after menopause.",
-      actives: "Calcium Hydroxyapatite, Maca, Lion's Mane"
+      era: "Ages 60+", name: "Wisdom", stage: "Pomegranate vanilla · long-term vitality", color: "#6B4A6E", img: "assets/vials/wisdom.png",
+      desc: "Cognitive clarity, joint comfort, and long-term vitality for the decades of wisdom.",
+      boost: "Curcumin, Boswellia, NMN"
     }
   };
 
@@ -147,18 +117,20 @@
   }
 
   function computeResult() {
-    var phase = PHASES[answers.stage] || PHASES.flow;
+    var phase = PHASES[answers.stage] || PHASES.bloom;
     document.getElementById("quizResultPhaseNum").textContent = "Your decade: " + phase.era;
     document.getElementById("quizResultName").textContent = phase.name;
     document.getElementById("quizResultStage").textContent = phase.stage;
-    document.getElementById("quizResultPouch").innerHTML = jarSvg(phase.color, phase.era);
+    document.getElementById("quizResultVial").innerHTML =
+      '<img src="' + phase.img + '" alt="Elateve ' + phase.name + ' liquid shot vial">';
 
     var desc = phase.desc;
     if (answers.priority && PRIORITY_LABELS[answers.priority]) {
-      desc += " You told us " + PRIORITY_LABELS[answers.priority] + " matters most right now — that's exactly what this gummy is built around.";
+      desc += " You told us " + PRIORITY_LABELS[answers.priority] + " matters most right now — that's exactly what this shot is built around.";
     }
     document.getElementById("quizResultDesc").textContent = desc;
-    document.getElementById("quizResultActives").innerHTML = "<strong>In every gummy:</strong> " + phase.actives;
+    document.getElementById("quizResultActives").innerHTML =
+      "<strong>Core 5:</strong> " + CORE_5 + "<br><strong>Plus for you:</strong> " + phase.boost;
 
     var resultCard = document.getElementById("quizResultCard");
     if (resultCard) resultCard.style.setProperty("--phase-color", phase.color);

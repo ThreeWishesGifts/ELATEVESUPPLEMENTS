@@ -4,4 +4,5 @@ Thumbs.db
 
 # Source pitch materials (kept local, not part of the deployed site)
 *.pptx
-Screenshot*.png
+/Screenshot*.png
+/ELATEVE SUPPLEMENTS*.png
