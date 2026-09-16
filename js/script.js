@@ -26,7 +26,27 @@
   }
 
   /* ---------------------------------------------------------
-     Phase / decade data — mirrors the cards in #decades and #shop
+     Scroll reveal — subtle fade/rise for a more dynamic feel
+  --------------------------------------------------------- */
+  var revealEls = document.querySelectorAll(".reveal");
+  if (revealEls.length) {
+    if ("IntersectionObserver" in window) {
+      var revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+      revealEls.forEach(function (el) { revealObserver.observe(el); });
+    } else {
+      revealEls.forEach(function (el) { el.classList.add("in-view"); });
+    }
+  }
+
+  /* ---------------------------------------------------------
+     Phase / decade data — mirrors the cards in #shop
   --------------------------------------------------------- */
   var CORE_5 = "Collagen, Magnesium, Omega-3, Vit C, Vit D";
 

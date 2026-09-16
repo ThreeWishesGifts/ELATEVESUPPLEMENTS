@@ -2,7 +2,17 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-# Source pitch materials (kept local, not part of the deployed site)
+# Source pitch materials and raw pasted images (kept local; curated
+# copies live under assets/ and are the ones actually tracked)
 *.pptx
 /Screenshot*.png
 /ELATEVE SUPPLEMENTS*.png
+/LOGO ELATEVE WELLNESS.png
+/LOGO ELATEVE WELLNESS PNG.png
+/top.jpg
+/Gemini_Generated_Image_*.jpg
+/BLOOM VIAL.png
+/THRIVE VIAL.png
+/BALANCE VIAL.png
+/PRIME VIAL.png
+/WISDOM VIAL.png
