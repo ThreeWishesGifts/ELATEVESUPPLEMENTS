@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Source pitch materials (kept local, not part of the deployed site)
+*.pptx
+Screenshot*.png
