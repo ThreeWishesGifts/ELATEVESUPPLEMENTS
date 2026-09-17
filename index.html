@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Newsreader:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=20260918a">
+<link rel="stylesheet" href="css/styles.css?v=20260918b">
 </head>
 <body>
 
@@ -41,23 +41,17 @@
 
   <!-- ================= HERO ================= -->
   <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-copy reveal">
-        <p class="eyebrow">Doctor-Formulated — Barcelona</p>
-        <h1>One shot, decoded for the decade you're actually in.</h1>
-        <p class="hero-sub">Five formulas. One Core 5 of Collagen, Magnesium, Omega-3, and Vitamin C &amp; D in every vial, pre-dissolved for instant absorption — plus the actives your decade actually needs.</p>
-        <div class="hero-cta">
-          <button class="btn btn-primary" data-open-quiz>Find Your Decade</button>
-          <a href="#science" class="btn btn-ghost">See the Science</a>
-        </div>
-      </div>
+    <div class="hero-photo">
+      <img src="assets/hero-bottles.jpg" alt="The five Elateve phase pods and vials — Flow, Bloom, Thrive, Shift, Wisdom" loading="eager">
+    </div>
 
-      <div class="hero-index reveal" aria-hidden="true">
-        <div class="hero-index-row"><span class="mono">PH-01</span><span class="hero-index-line" style="--accent:#A3B19B"></span><span>Flow</span></div>
-        <div class="hero-index-row"><span class="mono">PH-02</span><span class="hero-index-line" style="--accent:#D8C4A0"></span><span>Bloom</span></div>
-        <div class="hero-index-row"><span class="mono">PH-03</span><span class="hero-index-line" style="--accent:#7F8C8D"></span><span>Thrive</span></div>
-        <div class="hero-index-row"><span class="mono">PH-04</span><span class="hero-index-line" style="--accent:#C88A75"></span><span>Shift</span></div>
-        <div class="hero-index-row"><span class="mono">PH-05</span><span class="hero-index-line" style="--accent:#2C3E50"></span><span>Wisdom</span></div>
+    <div class="wrap hero-copy reveal">
+      <p class="eyebrow">Doctor-Formulated — Barcelona</p>
+      <h1>One shot, decoded for the decade you're actually in.</h1>
+      <p class="hero-sub">Five formulas. One Core 5 of Collagen, Magnesium, Omega-3, and Vitamin C &amp; D in every vial, pre-dissolved for instant absorption — plus the actives your decade actually needs.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" data-open-quiz>Find Your Decade</button>
+        <a href="#science" class="btn btn-ghost">See the Science</a>
       </div>
     </div>
 
@@ -74,26 +68,38 @@
 
   <!-- ================= PHILOSOPHY ================= -->
   <section class="philosophy" id="philosophy">
-    <div class="wrap">
-      <p class="section-eyebrow reveal">Positioning</p>
-      <h2 class="reveal quote-serif">&ldquo;Elateve already knows what decade you're in — so you don't have to guess what your body needs next.&rdquo;</h2>
+    <div class="wrap philosophy-split">
+      <div>
+        <p class="section-eyebrow reveal">Positioning</p>
+        <h2 class="reveal quote-serif">&ldquo;Elateve already knows what decade you're in — so you don't have to guess what your body needs next.&rdquo;</h2>
 
-      <div class="philosophy-grid">
-        <article class="philosophy-item reveal">
-          <span class="mono philosophy-num">01</span>
-          <h3>Radical ease</h3>
-          <p>One shot a day. Not ten bottles on the counter, not a powder tub, not a pill organizer. The ritual is the product.</p>
-        </article>
-        <article class="philosophy-item reveal">
-          <span class="mono philosophy-num">02</span>
-          <h3>Total transparency</h3>
-          <p>A QR code on every vial links to its own third-party lab report. Nothing proprietary-blend, nothing hidden behind &ldquo;complex.&rdquo;</p>
-        </article>
-        <article class="philosophy-item reveal">
-          <span class="mono philosophy-num">03</span>
-          <h3>Women, for women</h3>
-          <p>Founded and formulated by women, reviewed by an OB/GYN and endocrinology advisory network. Not adapted from a men's formula.</p>
-        </article>
+        <div class="philosophy-grid">
+          <article class="philosophy-item reveal">
+            <span class="mono philosophy-num">01</span>
+            <div>
+              <h3>Radical ease</h3>
+              <p>One shot a day. Not ten bottles on the counter, not a powder tub, not a pill organizer. The ritual is the product.</p>
+            </div>
+          </article>
+          <article class="philosophy-item reveal">
+            <span class="mono philosophy-num">02</span>
+            <div>
+              <h3>Total transparency</h3>
+              <p>A QR code on every vial links to its own third-party lab report. Nothing proprietary-blend, nothing hidden behind &ldquo;complex.&rdquo;</p>
+            </div>
+          </article>
+          <article class="philosophy-item reveal">
+            <span class="mono philosophy-num">03</span>
+            <div>
+              <h3>Women, for women</h3>
+              <p>Founded and formulated by women, reviewed by an OB/GYN and endocrinology advisory network. Not adapted from a men's formula.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="philosophy-photo reveal">
+        <img src="assets/lifestyle-younger.jpg" alt="A woman taking her daily Elateve Thrive shot" loading="lazy">
       </div>
     </div>
   </section>
@@ -143,6 +149,10 @@
       <p class="section-eyebrow reveal">The System</p>
       <h2 class="reveal">Five formulas. Not one bracket for every age.</h2>
       <p class="section-lede reveal">Legacy multivitamins sell one formula to every woman over 18. We built five, each named plainly on the vial.</p>
+
+      <div class="lineup-banner reveal">
+        <img src="assets/bottles-lineup.png" alt="The five Elateve vials — Flow, Bloom, Thrive, Shift, Wisdom" loading="lazy">
+      </div>
 
       <div class="phase-list">
 
@@ -260,6 +270,11 @@
       </div>
       <p class="clinical-disclaimer reveal">Quotes reflect feedback from our private early-access community ahead of public launch.</p>
     </div>
+  </section>
+
+  <!-- ================= PHOTO BANNER ================= -->
+  <section class="photo-banner">
+    <img src="assets/lifestyle-elder.jpg" alt="A woman taking her daily Elateve Wisdom shot" loading="lazy">
   </section>
 
   <!-- ================= ABOUT US + WAITLIST ================= -->
@@ -407,6 +422,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=20260918a"></script>
+<script src="js/script.js?v=20260918b"></script>
 </body>
 </html>
