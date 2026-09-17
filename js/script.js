@@ -26,22 +26,6 @@
   }
 
   /* ---------------------------------------------------------
-     Header — transparent over the hero, solid once scrolled
-  --------------------------------------------------------- */
-  var siteHeader = document.getElementById("siteHeader");
-  var heroImage = document.querySelector(".hero-top-image");
-  if (siteHeader) {
-    var updateHeaderState = function () {
-      var threshold = heroImage ? Math.max(heroImage.offsetHeight - 90, 40) : 40;
-      if (window.scrollY > threshold) siteHeader.classList.add("scrolled");
-      else siteHeader.classList.remove("scrolled");
-    };
-    updateHeaderState();
-    window.addEventListener("scroll", updateHeaderState, { passive: true });
-    window.addEventListener("resize", updateHeaderState);
-  }
-
-  /* ---------------------------------------------------------
      Scroll reveal — subtle fade/rise for a more dynamic feel
   --------------------------------------------------------- */
   var revealEls = document.querySelectorAll(".reveal");
@@ -62,35 +46,35 @@
   }
 
   /* ---------------------------------------------------------
-     Phase / decade data — mirrors the cards in #shop
+     Phase data — mirrors the rows in #shop
   --------------------------------------------------------- */
-  var CORE_5 = "Collagen, Magnesium, Omega-3, Vit C, Vit D";
+  var CORE_5 = "Collagen, Magnesium, Omega-3, Vitamin C & D";
 
   var PHASES = {
+    flow: {
+      code: "PH-01", name: "Flow", vibe: "Foundational, clear", accent: "#A3B19B", formula: "FORMULA NO. 5401",
+      desc: "Cycle regularity and steady energy for your foundational decade.",
+      boost: "Myo-Inositol, Folate, Zinc, KSM-66® Ashwagandha"
+    },
     bloom: {
-      era: "Ages 18–29", name: "Bloom", stage: "Citrus botanical · your foundational decade", color: "#E3B98C", img: "assets/vials/bloom.png",
-      desc: "Cycle regularity, steady energy, and reproductive health for your foundational decade — including support through pregnancy and postpartum.",
-      boost: "B-Complex, Zinc, Thiamine"
+      code: "PH-02", name: "Bloom", vibe: "Nourishing, warm", accent: "#D8C4A0", formula: "FORMULA NO. 5493",
+      desc: "Nourishment calibrated for pregnancy and the postpartum window.",
+      boost: "Choline, Iron Bisglycinate, Algal DHA"
     },
     thrive: {
-      era: "Ages 30–39", name: "Thrive", stage: "Berry botanical · the decade of demands", color: "#C9A44C", img: "assets/vials/thrive.png",
-      desc: "For the decade of demands — fertility, energy, and stress recovery while you're building the life you want.",
-      boost: "Choline, Active Folate, CoQ10"
+      code: "PH-03", name: "Thrive", vibe: "Restorative, steady", accent: "#7F8C8D", formula: "FORMULA NO. 5607",
+      desc: "Energy and stress recovery for the decade that asks the most of you.",
+      boost: "CoQ10, Magnesium Glycinate, Rhodiola"
     },
-    balance: {
-      era: "Ages 40–49", name: "Balance", stage: "Ginger hibiscus · perimenopause", color: "#B97D62", img: "assets/vials/balance.png",
-      desc: "Support through perimenopause's hormonal swings, mood shifts, and changing energy.",
-      boost: "Ashwagandha, Maca, Resveratrol"
-    },
-    prime: {
-      era: "Ages 50–59", name: "Prime", stage: "Blond orange · menopause & beyond", color: "#8B5A42", img: "assets/vials/prime.png",
-      desc: "Bone density and hormonal support as you move through menopause and into what's next.",
-      boost: "Vitamin K2, Calcium, Phytoestrogens"
+    shift: {
+      code: "PH-04", name: "Shift", vibe: "Grounding, regulating", accent: "#C88A75", formula: "FORMULA NO. 5402",
+      desc: "Support through perimenopause's hormonal swings and mood shifts.",
+      boost: "Black Cohosh, Vitex, Affron® Saffron"
     },
     wisdom: {
-      era: "Ages 60+", name: "Wisdom", stage: "Pomegranate vanilla · long-term vitality", color: "#4A2F22", img: "assets/vials/wisdom.png",
-      desc: "Cognitive clarity, joint comfort, and long-term vitality for the decades of wisdom.",
-      boost: "Curcumin, Boswellia, NMN"
+      code: "PH-05", name: "Wisdom", vibe: "Potent, enduring", accent: "#2C3E50", formula: "FORMULA NO. 5433",
+      desc: "Bone density, cognitive clarity, and long-term vitality.",
+      boost: "Calcium Hydroxyapatite, Maca, Lion's Mane"
     }
   };
 
@@ -108,7 +92,7 @@
   var quizModal = document.getElementById("quizModal");
   var quizProgressBar = document.getElementById("quizProgressBar");
   var quizSteps = quizModal ? Array.prototype.slice.call(quizModal.querySelectorAll(".quiz-step")) : [];
-  var answers = { stage: null, age: null, priority: null };
+  var answers = { stage: null, indicator: null, priority: null };
   var stepOrder = ["0", "1", "2", "3", "result"];
   var currentStepIndex = 0;
   var lastFocusedEl = null;
@@ -133,7 +117,7 @@
     lastFocusedEl = document.activeElement;
     quizModal.hidden = false;
     document.body.style.overflow = "hidden";
-    answers = { stage: null, age: null, priority: null };
+    answers = { stage: null, indicator: null, priority: null };
     clearSelections();
     showStep(0);
     dismissPopup(true);
@@ -153,23 +137,21 @@
   }
 
   function computeResult() {
-    var phase = PHASES[answers.stage] || PHASES.bloom;
-    document.getElementById("quizResultPhaseNum").textContent = "Your decade: " + phase.era;
+    var phase = PHASES[answers.stage] || PHASES.flow;
+    document.getElementById("quizResultPhaseNum").textContent = phase.code;
     document.getElementById("quizResultName").textContent = phase.name;
-    document.getElementById("quizResultStage").textContent = phase.stage;
-    document.getElementById("quizResultVial").innerHTML =
-      '<img src="' + phase.img + '" alt="Elateve ' + phase.name + ' liquid shot vial">';
+    document.getElementById("quizResultStage").textContent = phase.vibe;
 
     var desc = phase.desc;
     if (answers.priority && PRIORITY_LABELS[answers.priority]) {
-      desc += " You told us " + PRIORITY_LABELS[answers.priority] + " matters most right now — that's exactly what this shot is built around.";
+      desc += " You told us " + PRIORITY_LABELS[answers.priority] + " matters most right now — that's exactly what this formula is built around.";
     }
     document.getElementById("quizResultDesc").textContent = desc;
     document.getElementById("quizResultActives").innerHTML =
-      "<strong>Core 5:</strong> " + CORE_5 + "<br><strong>Plus for you:</strong> " + phase.boost;
+      "<strong>Core 5</strong> + " + phase.boost + "<br>" + phase.formula;
 
     var resultCard = document.getElementById("quizResultCard");
-    if (resultCard) resultCard.style.setProperty("--phase-color", phase.color);
+    if (resultCard) resultCard.style.setProperty("--accent", phase.accent);
 
     try {
       sessionStorage.setItem("elateve_phase_result", answers.stage);
@@ -189,7 +171,7 @@
       showStep(1);
     }
     if (e.target.closest("[data-quiz-restart]")) {
-      answers = { stage: null, age: null, priority: null };
+      answers = { stage: null, indicator: null, priority: null };
       clearSelections();
       showStep(0);
     }
@@ -204,7 +186,7 @@
 
       setTimeout(function () {
         if (question === "stage") showStep(2);
-        else if (question === "age") showStep(3);
+        else if (question === "indicator") showStep(3);
         else if (question === "priority") {
           computeResult();
           showStep(4);
