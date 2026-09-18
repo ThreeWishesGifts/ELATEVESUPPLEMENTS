@@ -51,29 +51,24 @@
   var CORE_5 = "Collagen, Magnesium, Omega-3, Vitamin C & D";
 
   var PHASES = {
-    flow: {
-      code: "PH-01", name: "Flow", vibe: "Foundational, clear", accent: "#A3B19B", formula: "FORMULA NO. 5401",
-      desc: "Cycle regularity and steady energy for your foundational decade.",
+    thrive: {
+      code: "PH-01", name: "Thrive", vibe: "Reproductive foundation", accent: "#A3B19B", formula: "FORMULA NO. 5401",
+      desc: "Cycle regularity and reproductive health, precisely supported.",
       boost: "Myo-Inositol, Folate, Zinc, KSM-66® Ashwagandha"
     },
     bloom: {
-      code: "PH-02", name: "Bloom", vibe: "Nourishing, warm", accent: "#D8C4A0", formula: "FORMULA NO. 5493",
-      desc: "Nourishment calibrated for pregnancy and the postpartum window.",
+      code: "PH-02", name: "Bloom", vibe: "Maternal journey", accent: "#D8C4A0", formula: "FORMULA NO. 5493",
+      desc: "Preconception, pregnancy, and postpartum, nourished with intention.",
       boost: "Choline, Iron Bisglycinate, Algal DHA"
     },
-    thrive: {
-      code: "PH-03", name: "Thrive", vibe: "Restorative, steady", accent: "#7F8C8D", formula: "FORMULA NO. 5607",
-      desc: "Energy and stress recovery for the decade that asks the most of you.",
-      boost: "CoQ10, Magnesium Glycinate, Rhodiola"
-    },
     shift: {
-      code: "PH-04", name: "Shift", vibe: "Grounding, regulating", accent: "#C88A75", formula: "FORMULA NO. 5402",
-      desc: "Support through perimenopause's hormonal swings and mood shifts.",
+      code: "PH-03", name: "Shift", vibe: "Hormonal transition", accent: "#C88A75", formula: "FORMULA NO. 5402",
+      desc: "Perimenopause's hormonal shifts, met with precision.",
       boost: "Black Cohosh, Vitex, Affron® Saffron"
     },
     wisdom: {
-      code: "PH-05", name: "Wisdom", vibe: "Potent, enduring", accent: "#2C3E50", formula: "FORMULA NO. 5433",
-      desc: "Bone density, cognitive clarity, and long-term vitality.",
+      code: "PH-04", name: "Wisdom", vibe: "Post-menopause, longevity", accent: "#7F8C8D", formula: "FORMULA NO. 5433",
+      desc: "Cognitive clarity and long-term vitality, sustained for life.",
       boost: "Calcium Hydroxyapatite, Maca, Lion's Mane"
     }
   };
@@ -120,7 +115,7 @@
     answers = { stage: null, indicator: null, priority: null };
     clearSelections();
     showStep(0);
-    dismissPopup(true);
+    collapseStageFinder();
   }
 
   function closeQuiz() {
@@ -137,7 +132,7 @@
   }
 
   function computeResult() {
-    var phase = PHASES[answers.stage] || PHASES.flow;
+    var phase = PHASES[answers.stage] || PHASES.thrive;
     document.getElementById("quizResultPhaseNum").textContent = phase.code;
     document.getElementById("quizResultName").textContent = phase.name;
     document.getElementById("quizResultStage").textContent = phase.vibe;
@@ -200,32 +195,41 @@
   });
 
   /* ---------------------------------------------------------
-     Quiz popup teaser — once per session, after a short delay
+     Stage finder — collapsed pill, appears after scrolling past
+     the hero; expands to the fuller panel on click.
   --------------------------------------------------------- */
-  var quizPopup = document.getElementById("quizPopup");
-  var quizPopupClose = document.getElementById("quizPopupClose");
+  var stageFinder = document.getElementById("stageFinder");
+  var stageFinderToggle = document.getElementById("stageFinderToggle");
+  var stageFinderPanel = document.getElementById("stageFinderPanel");
+  var stageFinderClose = document.getElementById("stageFinderClose");
+  var heroEl = document.querySelector(".hero");
 
-  function dismissPopup(persist) {
-    if (!quizPopup) return;
-    quizPopup.hidden = true;
-    if (persist) {
-      try { sessionStorage.setItem("elateve_popup_dismissed", "1"); } catch (e) { /* ignore */ }
-    }
+  function collapseStageFinder() {
+    if (!stageFinder) return;
+    stageFinder.classList.remove("expanded");
+    if (stageFinderPanel) stageFinderPanel.hidden = true;
+    if (stageFinderToggle) stageFinderToggle.setAttribute("aria-expanded", "false");
   }
 
-  if (quizPopup) {
-    var alreadyDismissed = false;
-    try { alreadyDismissed = sessionStorage.getItem("elateve_popup_dismissed") === "1"; } catch (e) { /* ignore */ }
+  if (stageFinder && stageFinderToggle && stageFinderPanel) {
+    stageFinderToggle.addEventListener("click", function () {
+      stageFinder.classList.add("expanded");
+      stageFinderPanel.hidden = false;
+      stageFinderToggle.setAttribute("aria-expanded", "true");
+    });
+    if (stageFinderClose) {
+      stageFinderClose.addEventListener("click", collapseStageFinder);
+    }
 
-    if (!alreadyDismissed) {
-      setTimeout(function () {
-        if (quizModal && !quizModal.hidden) return;
-        quizPopup.hidden = false;
-      }, 8000);
-    }
-    if (quizPopupClose) {
-      quizPopupClose.addEventListener("click", function () { dismissPopup(true); });
-    }
+    var revealStageFinder = function () {
+      var threshold = heroEl ? heroEl.offsetHeight - 80 : 400;
+      if (window.scrollY > threshold) {
+        stageFinder.hidden = false;
+        window.removeEventListener("scroll", revealStageFinder);
+      }
+    };
+    window.addEventListener("scroll", revealStageFinder, { passive: true });
+    revealStageFinder();
   }
 
   /* ---------------------------------------------------------
