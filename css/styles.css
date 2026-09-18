@@ -135,7 +135,7 @@ h2 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); max-width: 24ch; font-weight: 500;
 .philosophy-item h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
 .philosophy-item p { color: var(--ink-soft); font-size: .92rem; margin-bottom: 0; max-width: 44ch; }
 .philosophy-photo { position: relative; min-height: 320px; }
-.philosophy-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% center; }
+.philosophy-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 32% center; }
 
 /* Journey — four stages */
 .journey { background: var(--paper); }
